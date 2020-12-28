@@ -1,15 +1,14 @@
 ﻿## HOMEPAGE
 
-- **English** - Coming soon.
-- **简体中文** - [https://gameframework.cn/](https://gameframework.cn/)
-  - **QQ 讨论群** 216332935
+
+fork from [https://gameframework.cn/](https://gameframework.cn/)
+
 
 ---
 
-## Star Force 简介
+## Dosu-Star Force 简介
 
-Star Force 是一个使用 Game Framework 游戏框架制作的游戏演示项目，主要目的是对 Game Framework 的使用方法做一些示范，供使用者参考。
-
+在GF演示项目基础上的更改
 ---
 
 ![Game Framework](https://gameframework.cn/image/gameframework.png)
