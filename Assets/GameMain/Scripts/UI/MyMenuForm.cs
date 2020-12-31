@@ -30,6 +30,7 @@ namespace StarForce {
 
         protected override void OnOpen(object userData) {
             base.OnOpen(userData);
+            GameEntry.Debugger.RegisterDebuggerWindow("Lan", new ChangeLanguageDebuggerWindow());
             m_ProcedureMenu = (ProcedureMenu)userData;
             if (m_ProcedureMenu == null) {
                 Log.Warning("ProcedureMenu is invalid when open MenuForm.");

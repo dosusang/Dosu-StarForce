@@ -13,6 +13,20 @@ fork from [https://gameframework.cn/](https://gameframework.cn/)
 
 ![Game Framework](https://gameframework.cn/image/gameframework.png)
 
+## Learn
+**2020年12月30日**
+
+**创建UI** 以MenuForm为例子，创建prefab时，按钮上的文字对应字符串表的key,运行时替换，同时方便多语言。UI继承链 MonoBehaviour->UIFormLogic->UGuiForm->MenuForm;
+MenuForm的按钮使用了一个自定义的按钮组件 CommonButton
+在ProcedureMenu的OnEnter打开了这个ui,同时传入此流程的实例，以方便MenuForm对流程的操作，个人认为可以不用传入，需要流程控制时获取流程管理器即可
+
+GameEntryUI.OpenUIForm传入UI的id方便底层调用UIManager.OpenUIForm时需要的的参数根据id和配置表对应起来。
+所以创建ui的流程为创建prefab，编写UILogic，配置UI参数和对应Id(非必要)
+
+**2020年12月31日**
+
+**注册Debugger**GF的debugger是可以自定义注册window的，以此项目为例，编写一个Winddow，继承IDeBuggerWindow接口，再使用GameEntry.Debugger.RegisterDebuggerWindow(path, win)即可注册此窗口，在debugger开启的时候就可以看到此窗口了
+
 ---
 
 ## Game Framework 简介

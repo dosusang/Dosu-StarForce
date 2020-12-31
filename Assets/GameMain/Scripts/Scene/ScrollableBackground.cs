@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using UnityEngine;
+using UnityGameFramework.Runtime;
 
 namespace StarForce
 {
@@ -33,6 +34,7 @@ namespace StarForce
         {
             m_CachedTransform = transform;
             m_StartPosition = m_CachedTransform.position;
+            Log.Info("BG_SV STARTED");
         }
 
         private void Update()

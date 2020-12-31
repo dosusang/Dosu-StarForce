@@ -27,6 +27,7 @@ namespace StarForce
 
         public void OnEnter()
         {
+            Log.Warning("On Enter Change GameLang");
         }
 
         public void OnLeave()
