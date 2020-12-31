@@ -23,6 +23,8 @@ namespace StarForce
         /// 主菜单。
         /// </summary>
         MenuForm = 100,
+        MyMenuForm = 110,
+
 
         /// <summary>
         /// 设置。
