@@ -561,11 +561,11 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: ENABLE_LOG
-    4: ENABLE_LOG
-    7: ENABLE_LOG
-    13: ENABLE_LOG
-    14: ENABLE_LOG
+    1: 
+    4: 
+    7: 
+    13: 
+    14: 
   platformArchitecture:
     iOS: 2
   scriptingBackend:
