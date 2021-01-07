@@ -14,18 +14,31 @@ fork from [https://gameframework.cn/](https://gameframework.cn/)
 ![Game Framework](https://gameframework.cn/image/gameframework.png)
 
 ## Learn
+
+**2021年1月4日**
+
+**C#tip**看源码时发现了一种没见过的类初始化，new Class() {初始化方法体} 可以在方法体内对new出来的对象进行初始化，但只能对Class内能访问得到的属性进行初始化
+
+**C#tip**看源码时发现了在BinaryReaderExtension类里出现了参数前的this关键字，方法声明如[[ public static Color ReadColor(this BinaryReader binaryReader) ]]查阅资料后了解用法，这是对类的拓展方法，这个扩展方法在静态类中声明，定义一个静态方法，其中第一个参数定义可它的扩展类型。为了区分扩展方法和一般的静态方法，扩展方法还需要给第一个参数使用this关键字。扩展方法可以写入最初没有提供该方法的类中。还可以把方法添加到实现某个接口的任何类中，这样多个类可以使用相同的实现代码。
+
+**CodeTip**将游戏物体的最基本特性抽象出来，此例中为TargetableObject, 实现了血量管理，碰撞管理，碰撞时为避免碰撞重复计算让id小的一方处理碰撞。为了处理不同物体的碰撞，制定了一个管理所有阵营的关系表，用于判断碰撞后的处理，要不要扣血之类的。
+
+
+**2020年12月31日**
+
+**注册Debugger**GF的debugger是可以自定义注册window的，以此项目为例，编写一个Winddow，继承IDeBuggerWindow接口，再使用GameEntry.Debugger.RegisterDebuggerWindow(path, win)即可注册此窗口，在debugger开启的时候就可以看到此窗口了
+btw:今天打开GF的git，发现更新了一个：修复卸载场景报错的问题，很慌
+
+
 **2020年12月30日**
 
-**创建UI** 以MenuForm为例子，创建prefab时，按钮上的文字对应字符串表的key,运行时替换，同时方便多语言。UI继承链 MonoBehaviour->UIFormLogic->UGuiForm->MenuForm;
+**创建UI** 以MenuForm为例子，创建prefab时，按钮上的文字对应字符串表的key,运行时替换value作为显示，同时方便多语言。UI继承链 MonoBehaviour->UIFormLogic->UGuiForm->MenuForm;
 MenuForm的按钮使用了一个自定义的按钮组件 CommonButton
 在ProcedureMenu的OnEnter打开了这个ui,同时传入此流程的实例，以方便MenuForm对流程的操作，个人认为可以不用传入，需要流程控制时获取流程管理器即可
 
 GameEntryUI.OpenUIForm传入UI的id方便底层调用UIManager.OpenUIForm时需要的的参数根据id和配置表对应起来。
 所以创建ui的流程为创建prefab，编写UILogic，配置UI参数和对应Id(非必要)
 
-**2020年12月31日**
-
-**注册Debugger**GF的debugger是可以自定义注册window的，以此项目为例，编写一个Winddow，继承IDeBuggerWindow接口，再使用GameEntry.Debugger.RegisterDebuggerWindow(path, win)即可注册此窗口，在debugger开启的时候就可以看到此窗口了
 
 ---
 
