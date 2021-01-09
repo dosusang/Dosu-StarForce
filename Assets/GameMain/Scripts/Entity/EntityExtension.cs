@@ -62,6 +62,7 @@ namespace StarForce
 
         public static void ShowArmor(this EntityComponent entityComponent, ArmorData data)
         {
+            Log.Info(data);
             entityComponent.ShowEntity(typeof(Armor), "Armor", Constant.AssetPriority.ArmorAsset, data);
         }
 

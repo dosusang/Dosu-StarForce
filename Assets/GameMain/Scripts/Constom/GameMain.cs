@@ -8,6 +8,8 @@ public class GameMain : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     private Material mat;
+    [SerializeField]
+    private Material mat_despel;
     void Start()
     {
         
@@ -32,6 +34,12 @@ public class GameMain : MonoBehaviour
                 mat.SetFloat("_ColorRatio", 1);
             };
             tween.SetEase(Ease.OutBounce);
+
+            var tween2 = DOTween.To(()=>  mat_despel.GetFloat("_RatioUp"), (x) => mat_despel.SetFloat("_RatioUp", x), 0, (float)2);
+            tween2.onComplete = () =>
+            {
+                mat_despel.SetFloat("_RatioUp", 1);
+            };
         }
     }
 }

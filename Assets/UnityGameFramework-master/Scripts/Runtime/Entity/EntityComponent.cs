@@ -405,6 +405,7 @@ namespace UnityGameFramework.Runtime
         /// <param name="entityGroupName">实体组名称。</param>
         public void ShowEntity(int entityId, Type entityLogicType, string entityAssetName, string entityGroupName)
         {
+            Log.Info(entityAssetName);
             ShowEntity(entityId, entityLogicType, entityAssetName, entityGroupName, DefaultPriority, null);
         }
 
@@ -490,7 +491,7 @@ namespace UnityGameFramework.Runtime
                 Log.Error("Entity type is invalid.");
                 return;
             }
-
+            Log.Info("myinfo" + entityAssetName);
             m_EntityManager.ShowEntity(entityId, entityAssetName, entityGroupName, priority, ShowEntityInfo.Create(entityLogicType, userData));
         }
 
