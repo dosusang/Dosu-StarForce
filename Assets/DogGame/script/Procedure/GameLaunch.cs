@@ -3,13 +3,16 @@ using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using UnityEngine;
 
-public class GameLaunchProcedure : GameFramework.Procedure.ProcedureBase
+namespace StarForce
 {
-    protected override void  OnEnter(ProcedureOwner procedureOwner)
+    public class GameLaunchProcedure : GameFramework.Procedure.ProcedureBase
     {
-        Log.Info("Enter my Launch");
-        StarForce.GameEntry.Entity.AddEntityGroup("Dog", 10, 10, 10, 10);
-        //StarForce.GameEntry.Entity.ShowEntity(110, typeof(EntityBase), "Assets/DogGame/src/Entity/dog.prefab", "Dog");
-        //.ShowEntity(typeof(MyAircraft), "Aircraft", Constant.AssetPriority.MyAircraftAsset, data);
+        protected override void OnEnter(ProcedureOwner procedureOwner)
+        {
+            Log.Info("Enter my Launch");
+            GameEntry.Entity.AddEntityGroup("Dog", 10,10,10,10);
+            GameEntry.Entity.ShowEntity(1280, typeof(Dog), "Assets/DogGame/src/Entity/HDDog.prefab", "Dog", new DogData(110, 10));
+        }
     }
+
 }
