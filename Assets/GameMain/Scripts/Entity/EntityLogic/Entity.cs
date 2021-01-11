@@ -60,8 +60,7 @@ namespace StarForce
             m_EntityData = userData as EntityData;
             if (m_EntityData == null)
             {
-                Log.Error("Entity data is invalid.");
-                return;
+                Log.Info("Entity data is Null.");
             }
 
             Name = Utility.Text.Format("[Entity {0}]", Id.ToString());
