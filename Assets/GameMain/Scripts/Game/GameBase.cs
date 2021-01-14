@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using DG.Tweening;
 using GameFramework.Event;
 using UnityEngine;
 using UnityGameFramework.Runtime;
@@ -50,8 +51,7 @@ namespace StarForce
             //    Name = "My Aircraft",
             //    Position = Vector3.zero,
             //});
-            //GameEntry.Entity.ShowEntity(11001, typeof(EntityNone), "Assets/GameMain/Entities/EnemyShip.prefab", "Aircraft");
-
+            GameEntry.Entity.ShowEntity(GameEntry.Entity.GenerateSerialId(), typeof(EntityNone), "Assets/GameMain/Entities/EnemyShip.prefab", "Aircraft");
             GameOver = false;
             m_MyAircraft = null;
         }
@@ -74,9 +74,10 @@ namespace StarForce
         protected virtual void OnShowEntitySuccess(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs ne = (ShowEntitySuccessEventArgs)e;
-            if (ne.EntityLogicType == typeof(MyAircraft))
+            if (ne.EntityLogicType == typeof(EntityNone))
             {
-                m_MyAircraft = (MyAircraft)ne.Entity.Logic;
+                ne.Entity.transform.DOMoveX(2, 2);
+
             }
         }
 
