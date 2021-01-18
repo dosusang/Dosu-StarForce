@@ -50,7 +50,7 @@ namespace StarForce
             //    Name = "My Aircraft",
             //    Position = Vector3.zero,
             //});
-            //GameEntry.Entity.ShowEntity(11001, typeof(EntityNone), "Assets/GameMain/Entities/EnemyShip.prefab", "Aircraft");
+            GameEntry.Entity.ShowEntity(11001, typeof(EntityNone), "Assets/GameMain/Entities/EnemyShip.prefab", "Aircraft");
 
             GameOver = false;
             m_MyAircraft = null;
