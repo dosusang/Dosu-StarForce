@@ -7,18 +7,14 @@ namespace StarForce {
     /// </summary>
     public class DragableObj : MonoBehaviour, IDragHandler {
         private RectTransform rectTransform;
-
-
-        // Start is called before the first frame update
         void Start() {
             rectTransform = transform as RectTransform;
         }
         public void OnDrag(PointerEventData eventData) {
-            var globalMousePos = Vector3.zero;
-            if (RectTransformUtility.ScreenPointToWorldPointInRectangle(rectTransform, eventData.position, eventData.pressEventCamera, out globalMousePos)) {
-                rectTransform.position = globalMousePos;
-                rectTransform.rotation = rectTransform.rotation;
-            }
+            var delta = eventData.delta;
+            var temp_pos = rectTransform.position;
+            temp_pos.Set(temp_pos.x + delta.x, temp_pos.y + delta.y, temp_pos.z);
+            rectTransform.position = temp_pos;
         }
     }
 
