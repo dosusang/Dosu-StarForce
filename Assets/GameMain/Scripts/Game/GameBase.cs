@@ -36,24 +36,31 @@ namespace StarForce
         {
             GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntitySuccess);
             GameEntry.Event.Subscribe(ShowEntityFailureEventArgs.EventId, OnShowEntityFailure);
+            GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUISucc);
 
-            SceneBackground = Object.FindObjectOfType<ScrollableBackground>();
-            if (SceneBackground == null)
-            {
-                Log.Warning("Can not find scene background.");
-                return;
-            }
 
-            SceneBackground.VisibleBoundary.gameObject.GetOrAddComponent<HideByBoundary>();
+            //SceneBackground = Object.FindObjectOfType<ScrollableBackground>();
+            //if (SceneBackground == null)
+            //{
+            //    Log.Warning("Can not find scene background.");
+            //    return;
+            //}
+
+            //SceneBackground.VisibleBoundary.gameObject.GetOrAddComponent<HideByBoundary>();
             //GameEntry.Entity.ShowMyAircraft(new MyAircraftData(GameEntry.Entity.GenerateSerialId(), 10000)
             //{
             //    Name = "My Aircraft",
             //    Position = Vector3.zero,
             //});
-            GameEntry.Entity.ShowEntity(11001, typeof(EntityNone), "Assets/GameMain/Entities/EnemyShip.prefab", "Aircraft");
+            GameEntry.UI.OpenUIForm("Assets/GameMain/UI/UIForms/MainForm.prefab", "Default");
+            GameEntry.Entity.ShowEntity(11001, typeof(Robot), "Assets/GameMain/Entities/Robot.prefab", "Aircraft");
 
             GameOver = false;
             m_MyAircraft = null;
+        }
+
+        private void OnOpenUISucc(object sender, GameEventArgs e) {
+            
         }
 
         public virtual void Shutdown()
@@ -74,10 +81,12 @@ namespace StarForce
         protected virtual void OnShowEntitySuccess(object sender, GameEventArgs e)
         {
             ShowEntitySuccessEventArgs ne = (ShowEntitySuccessEventArgs)e;
-            if (ne.EntityLogicType == typeof(MyAircraft))
-            {
-                m_MyAircraft = (MyAircraft)ne.Entity.Logic;
-            }
+            
+        }
+
+        protected virtual void OnOpenUISucc(Object sender, GameEventArgs e) {
+            var ne = e as OpenUIFormSuccessEventArgs;
+            Log.Warning(ne.UIForm);
         }
 
         protected virtual void OnShowEntityFailure(object sender, GameEventArgs e)

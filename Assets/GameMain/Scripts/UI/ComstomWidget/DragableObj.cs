@@ -9,6 +9,8 @@ namespace StarForce {
         private RectTransform rectTransform;
         void Start() {
             rectTransform = transform as RectTransform;
+            rectTransform.anchorMin = new Vector2(0, 1);
+            rectTransform.anchorMax = new Vector2(0, 1);
         }
         public virtual void OnDrag(PointerEventData eventData) {
             var delta = eventData.delta;
