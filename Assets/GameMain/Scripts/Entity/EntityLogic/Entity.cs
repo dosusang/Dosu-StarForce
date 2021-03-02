@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -15,6 +16,8 @@ namespace StarForce
     {
         [SerializeField]
         private EntityData m_EntityData = null;
+
+        public List<GameObject> child;
 
         public int Id
         {
@@ -38,6 +41,7 @@ namespace StarForce
         {
             base.OnInit(userData);
             CachedAnimation = GetComponent<Animation>();
+            child = new List<GameObject>();
         }
 
 #if UNITY_2017_3_OR_NEWER
@@ -84,6 +88,9 @@ namespace StarForce
         protected internal override void OnAttached(EntityLogic childEntity, Transform parentTransform, object userData)
 #endif
         {
+            if (!child.Contains(childEntity.gameObject)) {
+                child.Add(childEntity.gameObject);
+            }
             base.OnAttached(childEntity, parentTransform, userData);
         }
 
@@ -93,6 +100,7 @@ namespace StarForce
         protected internal override void OnDetached(EntityLogic childEntity, object userData)
 #endif
         {
+            child.Remove(childEntity.gameObject);
             base.OnDetached(childEntity, userData);
         }
 
@@ -121,6 +129,10 @@ namespace StarForce
 #endif
         {
             base.OnUpdate(elapseSeconds, realElapseSeconds);
+            foreach (var obj in child) { 
+                obj.transform.position = transform.position;
+            }
+
         }
     }
 }

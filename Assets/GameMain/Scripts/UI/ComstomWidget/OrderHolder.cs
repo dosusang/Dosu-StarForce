@@ -30,6 +30,11 @@ namespace StarForce {
             
         }
 
+        public BaseOrder GetOrderByPos(int pos) {
+            if (pos >= m_order_list.Count) return null;
+            return m_order_list[pos];
+        }
+
         public void TryInsert(GameObject obj) {
             var obj_base_order = obj.GetComponent<BaseOrder>();
             var rect = gameObject.GetComponent<RectTransform>();

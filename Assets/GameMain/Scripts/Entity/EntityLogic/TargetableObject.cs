@@ -89,7 +89,7 @@ namespace StarForce
                 return;
             }
 
-            AIUtility.PerformCollision(this, entity);
+            // AIUtility.PerformCollision(this, entity); fixme may need a new function
         }
     }
 }

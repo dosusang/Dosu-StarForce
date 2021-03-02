@@ -332,7 +332,7 @@ namespace GameFramework.Localization
             string value = GetRawString(key);
             if (value == null)
             {
-                return Utility.Text.Format("<NoKey>{0}", key);
+                return key;
             }
 
             return value;

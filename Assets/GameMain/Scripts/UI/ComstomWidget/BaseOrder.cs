@@ -10,11 +10,12 @@ namespace StarForce {
         public Vector3 holderPos = Vector3.zero; 
         public OrderStatus m_status = OrderStatus.IS_BASE;
 
-        public OrderType order = OrderType.MOVE_UP;
+        public OrderType order = OrderType.GETINPUT;
 
         public void OnBeginDrag(PointerEventData eventData) {
             if (m_status != OrderStatus.IS_BASE) return;
             var obj_clone = Instantiate(gameObject, transform.position, transform.rotation);
+            obj_clone.name = gameObject.name;
             obj_clone.transform.SetParent(transform.parent);
             m_status = OrderStatus.IN_AIR;
 

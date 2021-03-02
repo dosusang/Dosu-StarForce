@@ -30,7 +30,6 @@ namespace StarForce
             protected set;
         }
 
-        private MyAircraft m_MyAircraft = null;
 
         public virtual void Initialize()
         {
@@ -53,10 +52,18 @@ namespace StarForce
             //    Position = Vector3.zero,
             //});
             GameEntry.UI.OpenUIForm("Assets/GameMain/UI/UIForms/MainForm.prefab", "Default");
-            GameEntry.Entity.ShowEntity(11001, typeof(Robot), "Assets/GameMain/Entities/Robot.prefab", "Aircraft");
+            GameEntry.Entity.ShowEntity(11001, typeof(OrderExcuer), "Assets/GameMain/Entities/Robot.prefab", "Aircraft");
+
+
+            GameEntry.Entity.ShowEntity(11002, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
+            GameEntry.Entity.ShowEntity(11003, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
+            GameEntry.Entity.ShowEntity(11004, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
+            GameEntry.Entity.ShowEntity(11005, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
+            GameEntry.Entity.ShowEntity(11006, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
+            GameEntry.Entity.ShowEntity(11007, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
+
 
             GameOver = false;
-            m_MyAircraft = null;
         }
 
         private void OnOpenUISucc(object sender, GameEventArgs e) {
@@ -71,7 +78,7 @@ namespace StarForce
 
         public virtual void Update(float elapseSeconds, float realElapseSeconds)
         {
-            if (m_MyAircraft != null && m_MyAircraft.IsDead)
+            if (false) //fixme need a gameover triggle
             {
                 GameOver = true;
                 return;

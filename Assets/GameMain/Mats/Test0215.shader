@@ -51,6 +51,15 @@
                 return m1;
             }
 
+            fixed3 rainbowRing(float2 uv, float2 pos, float size) {
+                fixed4 col = fixed4(0,0,0,1);
+                col.r  = circle2(uv,pos, size);
+                col.g  = circle2(uv, pos, size - 0.02);
+                col.b  = circle2(uv, pos, size - 0.04);
+                col.rgb  += circle(uv, pos, size - 0.01) * 0.3;
+                return col.rgb;
+            }
+
 
 
             fixed4 frag (v2f i) : SV_Target
@@ -58,17 +67,12 @@
                 float2 uv = i.uv - 0.5;
                 // sample the t
                 fixed4 col = float4(0,0,0,1);
-                uv.x *= -1;
-                float ratio = abs(uv.x - uv.y) * 3.5;
-                ratio  = smoothstep(0.6, 1, ratio);
-                col.r  = circle2(uv, float2(0, 0), 0.2);
-                col.g  = circle2(uv, float2(0, 0), 0.18);
-                col.b  = circle2(uv, float2(0, 0), 0.16);
-                col.rgb  += circle(uv, float2(0, 0), 0.19) * 0.3;
+
                 //float r = _Time.y % 1;
                 //col += tex2D(_MainTex, uv -= circle(uv, float2(0.5, 0.5),  r * 0.5 ) * 0.01/r); 
                 
                 //col += circle2(uv, float2(0,0), 0.2);
+                col.rgb += rainbowRing(uv, float2(0,0),0.2 );
 
                 return col;
             }
