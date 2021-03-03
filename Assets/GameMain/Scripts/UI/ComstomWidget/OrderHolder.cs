@@ -16,7 +16,7 @@ namespace StarForce {
         private int axis = 200;
 
         private int startPos { get { return spacing + upspacing; } }
-        private int contentHeight { get { return Math.Max(upspacing + spacing * (m_order_list.Count + 1), 1080); } }
+        private int contentHeight { get { return Math.Max(upspacing + spacing * (m_order_list.Count + 1), 800); } }
 
         private Vector3 BADPOS = new Vector3(999, 999, 999);
 

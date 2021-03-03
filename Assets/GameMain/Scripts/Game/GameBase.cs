@@ -54,20 +54,17 @@ namespace StarForce
             GameEntry.UI.OpenUIForm("Assets/GameMain/UI/UIForms/MainForm.prefab", "Default");
             GameEntry.Entity.ShowEntity(11001, typeof(OrderExcuer), "Assets/GameMain/Entities/Robot.prefab", "Aircraft");
 
-
-            GameEntry.Entity.ShowEntity(11002, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
-            GameEntry.Entity.ShowEntity(11003, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
-            GameEntry.Entity.ShowEntity(11004, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
-            GameEntry.Entity.ShowEntity(11005, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
-            GameEntry.Entity.ShowEntity(11006, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
-            GameEntry.Entity.ShowEntity(11007, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Aircraft");
-
-
             GameOver = false;
         }
 
         private void OnOpenUISucc(object sender, GameEventArgs e) {
             
+        }
+
+        public virtual void Reset() { 
+        }
+
+        public virtual void StartExcute() {
         }
 
         public virtual void Shutdown()
@@ -94,6 +91,7 @@ namespace StarForce
         protected virtual void OnOpenUISucc(Object sender, GameEventArgs e) {
             var ne = e as OpenUIFormSuccessEventArgs;
             Log.Warning(ne.UIForm);
+
         }
 
         protected virtual void OnShowEntityFailure(object sender, GameEventArgs e)

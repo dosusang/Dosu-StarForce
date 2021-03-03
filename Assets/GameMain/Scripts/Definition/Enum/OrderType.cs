@@ -7,4 +7,10 @@ namespace StarForce {
         OUTPUT,
     };
 
+    public enum InfoTypes {
+        Error,
+        Wram,
+        Info,
+    };
+
 }

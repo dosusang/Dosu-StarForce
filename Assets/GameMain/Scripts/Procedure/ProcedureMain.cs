@@ -33,6 +33,14 @@ namespace StarForce
             m_GotoMenu = true;
         }
 
+        public void OnReset() {
+            m_CurrentGame.Reset();
+        }
+
+        public void Start() {
+            m_CurrentGame.StartExcute();
+        }
+
         protected override void OnInit(ProcedureOwner procedureOwner)
         {
             base.OnInit(procedureOwner);
