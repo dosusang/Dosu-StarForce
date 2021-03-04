@@ -6,6 +6,7 @@ namespace StarForce {
 	public class OutPutBox : Entity {
 
         public List<string> outPuts = new List<string>();
+        public string answer = "";
         public MainForm form;
         public int formId = 0;
 		
@@ -21,6 +22,10 @@ namespace StarForce {
         private void RefreshOutPut() {
             if (form == null) form = (MainForm)GameEntry.UI.GetUIForm(formId).Logic;
             form.UpdateOutPut(GetPrams());
+        }
+
+        private void RefreshAnswer() { 
+            
         }
         private string GetPrams() {
             string s = "";

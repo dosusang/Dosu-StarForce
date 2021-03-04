@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-03-02 10:19:51.478
+// 生成时间：2021-03-04 16:27:05.914
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace StarForce
 {
     /// <summary>
-    /// 实体表。
+    /// 实体配置表。
     /// </summary>
     public class DREntity : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取实体编号。
+        /// 获取实体id。
         /// </summary>
         public override int Id
         {
@@ -56,8 +56,8 @@ namespace StarForce
             int index = 0;
             index++;
             m_Id = int.Parse(columnStrings[index++]);
-            index++;
             AssetName = columnStrings[index++];
+            index++;
 
             GeneratePropertyArray();
             return true;

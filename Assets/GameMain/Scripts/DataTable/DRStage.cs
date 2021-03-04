@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2021-03-04 16:27:05.974
+// 生成时间：2021-03-04 16:27:06.000
 //------------------------------------------------------------
 
 using GameFramework;
@@ -19,14 +19,14 @@ using UnityGameFramework.Runtime;
 namespace StarForce
 {
     /// <summary>
-    /// 界面配置表。
+    /// 关卡配置表。
     /// </summary>
-    public class DRUIForm : DataRowBase
+    public class DRStage : DataRowBase
     {
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取界面编号。
+        /// 获取关卡id。
         /// </summary>
         public override int Id
         {
@@ -37,36 +37,27 @@ namespace StarForce
         }
 
         /// <summary>
-        /// 获取资源名称。
+        /// 获取可用命令。
         /// </summary>
-        public string AssetName
+        public string Orders
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取界面组名称。
+        /// 获取给定的输入。
         /// </summary>
-        public string UIGroupName
+        public string Input
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// 获取是否允许多个界面实例。
+        /// 获取输出。
         /// </summary>
-        public bool AllowMultiInstance
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 获取是否暂停被其覆盖的界面。
-        /// </summary>
-        public bool PauseCoveredUIForm
+        public string OutPut
         {
             get;
             private set;
@@ -83,11 +74,9 @@ namespace StarForce
             int index = 0;
             index++;
             m_Id = int.Parse(columnStrings[index++]);
-            index++;
-            AssetName = columnStrings[index++];
-            UIGroupName = columnStrings[index++];
-            AllowMultiInstance = bool.Parse(columnStrings[index++]);
-            PauseCoveredUIForm = bool.Parse(columnStrings[index++]);
+            Orders = columnStrings[index++];
+            Input = columnStrings[index++];
+            OutPut = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -100,10 +89,9 @@ namespace StarForce
                 using (BinaryReader binaryReader = new BinaryReader(memoryStream, Encoding.UTF8))
                 {
                     m_Id = binaryReader.Read7BitEncodedInt32();
-                    AssetName = binaryReader.ReadString();
-                    UIGroupName = binaryReader.ReadString();
-                    AllowMultiInstance = binaryReader.ReadBoolean();
-                    PauseCoveredUIForm = binaryReader.ReadBoolean();
+                    Orders = binaryReader.ReadString();
+                    Input = binaryReader.ReadString();
+                    OutPut = binaryReader.ReadString();
                 }
             }
 

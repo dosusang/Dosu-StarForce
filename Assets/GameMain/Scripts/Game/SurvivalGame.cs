@@ -8,6 +8,7 @@
 using GameFramework;
 using GameFramework.DataTable;
 using GameFramework.Event;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
@@ -19,6 +20,10 @@ namespace StarForce
         private OrderExcuer excuer;
         private OutPutBox outPutBox;
         private int mainFormId = 0;
+        private DRStage curStageInfo = null;
+
+        private List<Box> InputBoxs = new List<Box>();
+        private string[] inputSplits;
         public override GameMode GameMode
         {
             get
@@ -30,29 +35,46 @@ namespace StarForce
         public void Initialize() {
 
             GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntitySuccess);
-
             mainFormId = GameEntry.UI.OpenUIForm("Assets/GameMain/UI/UIForms/MainForm.prefab", "Default");
-            GameEntry.Entity.ShowEntity(11001, typeof(OrderExcuer), "Assets/GameMain/Entities/Robot.prefab", "Robot");
-            GameEntry.Entity.ShowEntity(21001, typeof(OutPutBox), "Assets/GameMain/Entities/OutPutBox.prefab", "OutPut");
+            GameEntry.Entity.ShowRobot();
+            GameEntry.Entity.ShowOutPutBox();
+
+            int stage = 1;
+            IDataTable<DRStage> dtStage = GameEntry.DataTable.GetDataTable<DRStage>();
+            curStageInfo = dtStage.GetDataRow(stage);
 
 
-            CreateBoxs();
+            //生成对应箱子    设置答案  
+            inputSplits = GameEntry.Entity.ShowBox(curStageInfo.Input);
+
         }
 
-        
+
         protected override void OnShowEntitySuccess(object sender, GameEventArgs e) {
             ShowEntitySuccessEventArgs ne = (ShowEntitySuccessEventArgs)e;
-            if (ne.Entity.Id == 21001) {
+            if (ne.EntityLogicType == typeof(OutPutBox)) {
                 outPutBox = (OutPutBox)ne.Entity.Logic;
                 outPutBox.formId = mainFormId;
                 var outputpos = GameObject.Find("PointOutput").transform.position;
-                outPutBox.gameObject.transform.position = outputpos + 2*Vector3.down;
-            } else {
-                var gameobj = ne.Entity.gameObject;
-                var temp = gameobj.GetComponent<OrderExcuer>();
+                outPutBox.gameObject.transform.position = outputpos + 2 * Vector3.down;
+                //Log.Info("GetoutPutBox ----");
+
+            } else if (ne.EntityLogicType == typeof(OrderExcuer)) {
+                var temp = (OrderExcuer)ne.Entity.Logic;
                 if (temp != null) {
                     excuer = temp;
                     excuer.mainFormId = mainFormId;
+                    //Log.Info("GetOrderExcuer ----");
+                }
+            } else if (ne.EntityLogicType == typeof(Box)) {
+                InputBoxs.Add((Box)ne.Entity.Logic);
+                if (InputBoxs.Count == inputSplits.Length) {
+                    float posx = ne.Entity.gameObject.transform.position.x;
+                    Log.Info("size = " + inputSplits.Length);
+                    for(int i = 0; i < InputBoxs.Count; i++){
+                        InputBoxs[i].boxPram = inputSplits[i];
+                        InputBoxs[i].gameObject.transform.position = new Vector3(posx, i, -1);
+                    }
                 }
             }
         }
@@ -71,15 +93,6 @@ namespace StarForce
 
         public override void StartExcute() {
             excuer.GetComponent<OrderExcuer>().StartExcute();
-        }
-
-        private void CreateBoxs() {
-            GameEntry.Entity.ShowEntity(11002, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Box");
-            GameEntry.Entity.ShowEntity(11003, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Box");
-            GameEntry.Entity.ShowEntity(11004, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Box");
-            GameEntry.Entity.ShowEntity(11005, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Box");
-            GameEntry.Entity.ShowEntity(11006, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Box");
-            GameEntry.Entity.ShowEntity(11007, typeof(Box), "Assets/GameMain/Entities/Box.prefab", "Box");
         }
 
         public override void Update(float elapseSeconds, float realElapseSeconds)

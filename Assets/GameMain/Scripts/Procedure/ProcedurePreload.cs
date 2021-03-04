@@ -25,6 +25,7 @@ namespace StarForce
             "Sound",
             "UIForm",
             "UISound",
+            "Stage",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
