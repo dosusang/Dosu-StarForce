@@ -27,6 +27,10 @@ namespace StarForce {
             m_ProcedureMain.Start();
         }
 
+        public void OnBackButtonClick() {
+            m_ProcedureMain.GotoMenu();
+        }
+
         public void UpdateLogger(string s, InfoTypes infoType) {
             logger.text = s;
             if (infoType == InfoTypes.Error) loggerBg.color = Color.red;

@@ -43,10 +43,8 @@ namespace StarForce
             IDataTable<DRStage> dtStage = GameEntry.DataTable.GetDataTable<DRStage>();
             curStageInfo = dtStage.GetDataRow(stage);
 
-
             //生成对应箱子    设置答案  
             inputSplits = GameEntry.Entity.ShowBox(curStageInfo.Input);
-
         }
 
 
@@ -54,18 +52,11 @@ namespace StarForce
             ShowEntitySuccessEventArgs ne = (ShowEntitySuccessEventArgs)e;
             if (ne.EntityLogicType == typeof(OutPutBox)) {
                 outPutBox = (OutPutBox)ne.Entity.Logic;
-                outPutBox.formId = mainFormId;
-                var outputpos = GameObject.Find("PointOutput").transform.position;
-                outPutBox.gameObject.transform.position = outputpos + 2 * Vector3.down;
-                //Log.Info("GetoutPutBox ----");
-
+                outPutBox.SetInfo(curStageInfo.OutPut, mainFormId);
             } else if (ne.EntityLogicType == typeof(OrderExcuer)) {
                 var temp = (OrderExcuer)ne.Entity.Logic;
-                if (temp != null) {
-                    excuer = temp;
-                    excuer.mainFormId = mainFormId;
-                    //Log.Info("GetOrderExcuer ----");
-                }
+                excuer = temp;
+                excuer.mainFormId = mainFormId;
             } else if (ne.EntityLogicType == typeof(Box)) {
                 InputBoxs.Add((Box)ne.Entity.Logic);
                 if (InputBoxs.Count == inputSplits.Length) {
@@ -78,6 +69,10 @@ namespace StarForce
                 }
             }
         }
+
+        protected override void OnShowEntityFailure(object sender, GameEventArgs e) {
+            base.OnShowEntityFailure(sender, e);    
+        }
         public override void Reset() {
             var inputPos = GameObject.Find("PointInput").transform.position;
             var boxs = GameEntry.Entity.GetEntityGroup("Box");
@@ -88,11 +83,12 @@ namespace StarForce
                 entity.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             }
             Debug.Log("ResetBoxs");
+            excuer.gameObject.transform.position = Vector3.zero;
             outPutBox.outPuts.Clear();
         }
 
         public override void StartExcute() {
-            excuer.GetComponent<OrderExcuer>().StartExcute();
+            excuer.GetComponent<OrderExcuer>().StartExcute(outPutBox);
         }
 
         public override void Update(float elapseSeconds, float realElapseSeconds)

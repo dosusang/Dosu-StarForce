@@ -27,14 +27,13 @@ namespace StarForce
         public bool GameOver
         {
             get;
-            protected set;
+            set;
         }
 
 
         public virtual void Initialize()
         {
             GameEntry.Event.Subscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntitySuccess);
-            GameEntry.Event.Subscribe(ShowEntityFailureEventArgs.EventId, OnShowEntityFailure);
             GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUISucc);
 
 
@@ -70,7 +69,6 @@ namespace StarForce
         public virtual void Shutdown()
         {
             GameEntry.Event.Unsubscribe(ShowEntitySuccessEventArgs.EventId, OnShowEntitySuccess);
-            GameEntry.Event.Unsubscribe(ShowEntityFailureEventArgs.EventId, OnShowEntityFailure);
         }
 
         public virtual void Update(float elapseSeconds, float realElapseSeconds)

@@ -2,7 +2,7 @@
 
 
 fork from [https://gameframework.cn/](https://gameframework.cn/)
-
+##2021/3/10：经对GF的初步研究，目前框架文档不完善，使用起来有些繁琐，将项目重构成QFrameWork项目
 
 ---
 

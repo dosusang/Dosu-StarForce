@@ -9,7 +9,6 @@ namespace StarForce {
         public OrderHolder tarRoot;
         public Vector3 holderPos = Vector3.zero; 
         public OrderStatus m_status = OrderStatus.IS_BASE;
-
         public OrderType order = OrderType.GETINPUT;
 
         public void OnBeginDrag(PointerEventData eventData) {

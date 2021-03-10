@@ -6,14 +6,17 @@ using UnityEngine;
 namespace StarForce {
     public class OrderExcuer : Entity {
         private enum nowStatus {
-            GETORDER = 0,
-            EXCUTING = 1,
-            READY = 2,
+            GETORDER,
+            EXCUTING,
+            READY,
             COMPELETED,
         };
         private OrderType order = OrderType.NONE;
         private nowStatus status = nowStatus.COMPELETED;
         private OrderHolder holder = null;
+        private OutPutBox outPutBox = null;
+        
+
         private int nowLine = 0;
         private int tweenId = 0;
         private Vector3 pointInput;
@@ -23,14 +26,19 @@ namespace StarForce {
         public int mainFormId = 0;
 
         private void Start() {
+
+        }
+        private void Init(OutPutBox ouputbox) {
+            form = (MainForm)GameEntry.UI.GetUIForm(mainFormId).Logic;
             holder = GameObject.Find("OrderHolder").GetComponent<OrderHolder>();
+            outPutBox = ouputbox;
             pointInput = GameObject.Find("PointInput").transform.position;
             pointOutput = GameObject.Find("PointOutput").transform.position;
         }
 
-        public void StartExcute() {
+        public void StartExcute(OutPutBox ouputbox) {
             if (form == null) {
-                form = (MainForm)GameEntry.UI.GetUIForm(mainFormId).Logic;
+                Init(ouputbox);
             }
             status = nowStatus.READY;
             transform.position = new  Vector3(0, 0, 0);
@@ -44,7 +52,6 @@ namespace StarForce {
         }
 
         void Update() {
-            if (Input.GetKeyDown(KeyCode.Space)) { StartExcute(); }
             if (status == nowStatus.READY) {
                 order = GetOrder();
                 if (order != OrderType.NONE) {
@@ -77,6 +84,10 @@ namespace StarForce {
                 SafeUpdateLog("输出中", InfoTypes.Info);
                 var tween = transform.DOMove(pointOutput, 1);
                 tween.onComplete  = ()=> {
+                    if (child.Count <= 0) {
+                        form.UpdateLogger("错误 输出值为空", InfoTypes.Error);
+                        return;
+                    }
                     OnDetached(child[0].GetComponent<Entity>(), null);
                     onOrderComplete();
                 };
@@ -94,11 +105,11 @@ namespace StarForce {
             
         }
         private OrderType GetOrder() {
-
             if (nowLine == holder.transform.childCount) {
                 nowLine = 0;
                 status = nowStatus.COMPELETED;
                 SafeUpdateLog("运行完成", InfoTypes.Info);
+                outPutBox.CheckOutPut();
                 return OrderType.NONE;
             }
             var o = holder.GetOrderByPos(nowLine).order;

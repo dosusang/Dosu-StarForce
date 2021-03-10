@@ -6,26 +6,35 @@ namespace StarForce {
 	public class OutPutBox : Entity {
 
         public List<string> outPuts = new List<string>();
-        public string answer = "";
-        public MainForm form;
-        public int formId = 0;
+        private string answer = "";
+        private MainForm form;
 		
         private void OnTriggerEnter2D(Collider2D collision) {
             var obj = collision.gameObject;
             var box = obj.GetComponent<Box>();
             if (box != null) {
                 outPuts.Add(box.boxPram);
-                RefreshOutPut();
             }
         }
 
-        private void RefreshOutPut() {
-            if (form == null) form = (MainForm)GameEntry.UI.GetUIForm(formId).Logic;
-            form.UpdateOutPut(GetPrams());
-        }
 
-        private void RefreshAnswer() { 
-            
+        public void CheckOutPut() {
+            bool isRight = true;
+            if (outPuts.Count != answer.Length) isRight = false;
+            else {
+                for (int i = 0; i < answer.Length; i++) {
+                    if (outPuts[i] != answer[i].ToString()) {
+                        isRight = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isRight) {
+                form.UpdateOutPut("Accpet!!");
+            } else {
+                form.UpdateOutPut("错误输出\n你应该输出" + answer);
+            }
         }
         private string GetPrams() {
             string s = "";
@@ -33,6 +42,14 @@ namespace StarForce {
                 s += pram;
             }
             return s;
+        }
+
+        internal void SetInfo(string outPut, int formId) {
+            answer = outPut;
+            if (form == null) form = (MainForm)GameEntry.UI.GetUIForm(formId).Logic;
+            var outputpos = GameObject.Find("PointOutput").transform.position;
+            gameObject.transform.position = outputpos + 1 * Vector3.down;
+            OnHide(true, null);
         }
     }
 }

@@ -31,6 +31,8 @@ namespace StarForce
         public void GotoMenu()
         {
             m_GotoMenu = true;
+            m_CurrentGame.GameOver = true;
+            Log.Info("GOTOMENU");
         }
 
         public void OnReset() {

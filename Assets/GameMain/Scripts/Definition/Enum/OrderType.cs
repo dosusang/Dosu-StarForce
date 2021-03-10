@@ -5,6 +5,14 @@ namespace StarForce {
         NONE,
         GETINPUT,
         OUTPUT,
+        COPYFROM,
+        COPYTO,
+        ADDTO,
+        SUBTO,
+        DIVTO,
+        MULTO,
+        JUMPTO,
+        IFZEROJTO,
     };
 
     public enum InfoTypes {
